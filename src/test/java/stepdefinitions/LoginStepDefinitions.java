@@ -5,15 +5,13 @@ import data.UserBuilder;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import pages.DashboardPage;
 import pages.OrgangeHRMLoginPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static stepdefinitions.Hooks.getDriver;
 
-public class LoginStepDefinitions {
-    private final WebDriver driver = getDriver();
+public class LoginStepDefinitions extends StepDefinitions {
     private OrgangeHRMLoginPage loginPage;
 
     @Given("^the HHRR manager wants to login on OrangeHRM$")
