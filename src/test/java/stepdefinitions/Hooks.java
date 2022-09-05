@@ -1,29 +1,30 @@
 package stepdefinitions;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import java.util.concurrent.TimeUnit;
+
+import java.time.Duration;
 
 public class Hooks {
 
     private static WebDriver driver;
 
-    @BeforeTest
+    @Before
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5 , TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     public static WebDriver getDriver(){
         return driver;
     }
 
-    @AfterTest
+    @After
     public void tearDown(){
         driver.quit();
     }

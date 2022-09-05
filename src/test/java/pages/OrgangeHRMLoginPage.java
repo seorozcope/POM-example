@@ -1,28 +1,47 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static stepdefinitions.Hooks.getDriver;
+public class OrgangeHRMLoginPage extends BasePage{
 
-public class OrgangeHRMLoginPage {
+    @FindBy(name="username")
+    WebElement inputUserName;
+    @FindBy(name="password")
+    WebElement inputPassword;
+    @FindBy(xpath="//button[text()=' Login ']")
+    WebElement btnLogin;
+    @FindBy(xpath="//div[@role='alert']/child::div[1]/child::p[1]")
+    WebElement lblErrorMessage;
 
-    public By inputUserName = By.name("username");
-    public By inputPassword = By.name("password");
-    public By btnLogin = By.name("//button[text()=' Login ']");
-
+    public OrgangeHRMLoginPage(WebDriver driver) {
+        super(driver);
+    }
 
     public OrgangeHRMLoginPage enterTheUsername (String username){
-        getDriver().findElement(inputUserName).sendKeys(username);
+        wait.until(ExpectedConditions.elementToBeClickable(inputUserName));
+        inputUserName.sendKeys(username);
         return this;
     }
 
     public OrgangeHRMLoginPage enterThePassword (String password){
-        getDriver().findElement(inputPassword).sendKeys(password);
+        inputPassword.sendKeys(password);
         return this;
     }
 
     public OrgangeHRMLoginPage clickOnLogin (){
-        getDriver().findElement(btnLogin).click();
+        btnLogin.click();
         return this;
+    }
+
+    public OrgangeHRMLoginPage then (){
+        return this;
+    }
+
+    public String getShowedErrorMessage() {
+        wait.until(ExpectedConditions.elementToBeClickable(inputUserName));
+        return lblErrorMessage.getText();
     }
 }
