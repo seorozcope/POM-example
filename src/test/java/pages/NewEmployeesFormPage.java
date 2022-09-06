@@ -1,5 +1,7 @@
 package pages;
 
+import data.Employee;
+import data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +31,8 @@ public class NewEmployeesFormPage extends BasePage {
     WebElement inputConfirmPassword;
     @FindBy(xpath = "//div[@class='--status-grouped-field']/div[1]/div[2]/div/label/span")
     WebElement radioMarkAsEnabled;
+    @FindBy(xpath = "//div[@class='--status-grouped-field']/div[2]/div[2]/div/label/span")
+    WebElement radioMarkAsDisabled;
 
 
     public NewEmployeesFormPage(WebDriver driver) {
@@ -81,6 +85,24 @@ public class NewEmployeesFormPage extends BasePage {
 
     public NewEmployeesFormPage markAccountAsEnabled() {
         radioMarkAsEnabled.click();
+        return this;
+    }
+
+    public NewEmployeesFormPage fillOutEmployeeInfo(Employee employee) {
+        enterTheFirstName(employee.getFirstName())
+                .then().enterTheLastName(employee.getLastName());
+        return this;
+    }
+
+    public NewEmployeesFormPage fillOutCredentialDetails(User user) {
+        enterTheUsername(user.getUsername())
+                .then().enterThePassword(user.getPassword())
+                .then().confirmThePassword(user.getPassword());
+        return this;
+    }
+
+    public NewEmployeesFormPage markAccountAsDisabled() {
+        radioMarkAsDisabled.click();
         return this;
     }
 }

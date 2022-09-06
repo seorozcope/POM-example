@@ -40,10 +40,21 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
         navigatorPage.waitUntilSpinnerIsOut();
         String username = employee.getFirstName().concat(newEmployeesFormPage.getEmployeeID());
         user = new UserBuilder().setUsername(username).setPassword("@".concat(username)).build();
-        newEmployeesFormPage.enterTheFirstName(employee.getFirstName()).then().enterTheLastName(employee.getLastName())
-                .then().clickOnCreateLoginDetailsToggle().then().enterTheUsername(user.getUsername())
-                .then().enterThePassword(user.getPassword()).then().confirmThePassword(user.getPassword())
+        newEmployeesFormPage.fillOutEmployeeInfo(employee)
+                .then().clickOnCreateLoginDetailsToggle().then().fillOutCredentialDetails(user)
                 .then().markAccountAsEnabled().then().clickOnSave();
+    }
+    @When("^I submit the new employee creating a disabled account form filling out the required fields$")
+    public void submitTheNewEmployeeCreatingADisabledAccountFormFillingOutTheRequiredFields() {
+        EmployeesRecordPage employeesRecordPage = new EmployeesRecordPage(driver);
+        NewEmployeesFormPage newEmployeesFormPage = new NewEmployeesFormPage(driver);
+        employeesRecordPage.clickOnAddUser();
+        navigatorPage.waitUntilSpinnerIsOut();
+        String username = employee.getFirstName().concat(newEmployeesFormPage.getEmployeeID());
+        user = new UserBuilder().setUsername(username).setPassword("@".concat(username)).build();
+        newEmployeesFormPage.fillOutEmployeeInfo(employee)
+                .then().clickOnCreateLoginDetailsToggle().then().fillOutCredentialDetails(user)
+                .then().markAccountAsDisabled().then().clickOnSave();
     }
 
     @Then("^the new employee should be registered$")
@@ -65,5 +76,13 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
         assertThat(dashboardPage.profileFullNameIsShown()).isEqualTo(true);
         assertThat(dashboardPage.profileFullNameShowed()).isEqualTo(employee.getFullName());
 
+    }
+    @And("^should see (.*) when tried to login$")
+    public void shouldNotBeenGrantedWithAccessToOrangeHRM(String expectedErrorMessage) {
+        DashboardPage dashboardPage = new DashboardPage(driver);
+        dashboardPage.clickOnProfileFullName().then().clickOnLogout();
+        OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
+        loginPage.loginWithCredentials(user);
+        assertThat(loginPage.getShowedErrorMessage()).isEqualTo(expectedErrorMessage);
     }
 }
