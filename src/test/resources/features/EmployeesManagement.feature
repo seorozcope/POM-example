@@ -15,7 +15,7 @@ Feature: As an OrangeHRM Admin I want to manage the employees to grant, or deny 
     Then the new employee should be registered
     And should have been granted with access to OrangeHRM
 
-    Scenario: register an employee assigning a disabled OrangeHRM account
+  Scenario: register an employee assigning a disabled OrangeHRM account
     Given I want to register an employee
     When I submit the new employee creating a disabled account form filling out the required fields
     Then the new employee should be registered
