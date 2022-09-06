@@ -12,20 +12,20 @@ public class Hooks {
 
     private static WebDriver driver;
 
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
     @Before
-    public void setup(){
+    public void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
-    public static WebDriver getDriver(){
-        return driver;
-    }
-
     @After
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 

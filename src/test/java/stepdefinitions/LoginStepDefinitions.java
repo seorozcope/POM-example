@@ -19,13 +19,13 @@ public class LoginStepDefinitions extends StepDefinitions {
         getDriver().get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         loginPage = new OrgangeHRMLoginPage(driver);
     }
+
     @When("^he/she provides wrong credentials$")
     public void heSheProvidesWrongCredentials() {
-        User wrongUser= UserBuilder.wrongCredentials();
-        loginPage.enterTheUsername(wrongUser.getUsername())
-                .then().enterThePassword(wrongUser.getPassword())
-                .then().clickOnLogin();
+        User wrongUser = UserBuilder.wrongCredentials();
+        loginPage.loginWithCredentials(wrongUser);
     }
+
     @Then("^he/she should see an (.*) message$")
     public void heSheShouldSeeAnInvalidCredentialsMessage(String expectedErrorMessage) {
         assertThat(loginPage.getShowedErrorMessage()).isEqualTo(expectedErrorMessage);
@@ -33,11 +33,10 @@ public class LoginStepDefinitions extends StepDefinitions {
 
     @When("^he/she provides valid credentials$")
     public void heSheProvidesValidCredentials() {
-        User wrongUser= UserBuilder.adminUser();
-        loginPage.enterTheUsername(wrongUser.getUsername())
-                .then().enterThePassword(wrongUser.getPassword())
-                .then().clickOnLogin();
+        User adminUser = UserBuilder.adminUser();
+        loginPage.loginWithCredentials(adminUser);
     }
+
     @Then("^he/she should see the main dashboard$")
     public void heSheShouldSeeTheMainDashboard() {
         DashboardPage dashboardPage = new DashboardPage(driver);

@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class NavigatorPage extends BasePage{
+public class NavigatorPage extends BasePage {
 
-    @FindBy(xpath="//ul[@class='oxd-main-menu']/child::li/child::a/child::span[text()='PIM']")
+    @FindBy(xpath = "//ul[@class='oxd-main-menu']/child::li/child::a/child::span[text()='PIM']")
     WebElement btnPMI;
-    @FindBy(className="oxd-loading-spinner")
+    @FindBy(className = "oxd-loading-spinner")
     WebElement loadingSpinner;
 
 
@@ -17,13 +17,13 @@ public class NavigatorPage extends BasePage{
         super(driver);
     }
 
-    public NavigatorPage clickOnPMI (){
+    public NavigatorPage clickOnPMI() {
         wait.until(ExpectedConditions.elementToBeClickable(btnPMI));
         btnPMI.click();
         return this;
     }
 
-    public NavigatorPage waitUntilSpinnerIsOut(){
+    public NavigatorPage waitUntilSpinnerIsOut() {
         wait.until(ExpectedConditions.invisibilityOf(loadingSpinner));
         return this;
     }

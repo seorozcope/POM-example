@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
 
-public abstract  class BasePage {
+public abstract class BasePage {
     protected WebDriver driver;
     protected Wait<WebDriver> wait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait=  new FluentWait<>(driver)
+        this.wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(15))
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(NoSuchElementException.class);

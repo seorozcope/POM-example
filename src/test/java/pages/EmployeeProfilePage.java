@@ -5,13 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class EmployeeProfilePage extends BasePage{
+public class EmployeeProfilePage extends BasePage {
 
-    @FindBy(xpath="//div[@class='orangehrm-edit-employee-name']/h6")
+    @FindBy(xpath = "//div[@class='orangehrm-edit-employee-name']/h6")
     WebElement lblEmployeeFullName;
-    @FindBy(name="firstName")
+    @FindBy(name = "firstName")
     WebElement inputFirstName;
-    @FindBy(name="lastName")
+    @FindBy(name = "lastName")
     WebElement inputlastName;
 
 
@@ -19,14 +19,16 @@ public class EmployeeProfilePage extends BasePage{
         super(driver);
     }
 
-    public String fullNameShown (){
+    public String fullNameShown() {
         wait.until(ExpectedConditions.visibilityOf(lblEmployeeFullName));
-        return  lblEmployeeFullName.getText();
+        return lblEmployeeFullName.getText();
     }
-    public String firstNameDefaultValueShown (){
-        return  inputFirstName.getAttribute("value");
+
+    public String firstNameDefaultValueShown() {
+        return inputFirstName.getAttribute("value");
     }
-    public String lastNameDefaultValueShown (){
-        return  inputlastName.getAttribute("value");
+
+    public String lastNameDefaultValueShown() {
+        return inputlastName.getAttribute("value");
     }
 }

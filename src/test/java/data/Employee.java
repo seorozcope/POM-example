@@ -16,5 +16,7 @@ public class Employee {
         return lastName;
     }
 
-    public String getFullName(){return firstName.concat(" ").concat(lastName);}
+    public String getFullName() {
+        return firstName.concat(" ").concat(lastName);
+    }
 }

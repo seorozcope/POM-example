@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class EmployeesRecordPage extends BasePage{
+public class EmployeesRecordPage extends BasePage {
 
-    @FindBy(xpath="//a[text()='Add Employee']")
+    @FindBy(xpath = "//a[text()='Add Employee']")
     WebElement btnAddEmployee;
 
 
@@ -15,7 +15,7 @@ public class EmployeesRecordPage extends BasePage{
         super(driver);
     }
 
-    public EmployeesRecordPage clickOnAddUser (){
+    public EmployeesRecordPage clickOnAddUser() {
         wait.until(ExpectedConditions.elementToBeClickable(btnAddEmployee));
         btnAddEmployee.click();
         return this;
