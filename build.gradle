@@ -25,10 +25,10 @@ dependencies() {
 
 test {
     useTestNG() {
-        //set TestNG output dir
-        outputDirectory = file("$project.buildDir//testngOutput")
-        //required to turn on TestNG reports
         useDefaultListeners = true
-        suites 'testng-myTests.xml'
+        suites 'src/test/java/runners/testng.xml'
     }
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
+    maxParallelForks = Runtime.runtime.availableProcessors() - 1
 }
