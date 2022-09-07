@@ -5,6 +5,7 @@
         <classes>
             <class name="runners.LoginRunner"/>
             <class name="runners.EmployeesManagementRunner"/>
+            <class name="runners.PMITerminationReasonsRunner"/>
         </classes>
     </test>
 </suite>

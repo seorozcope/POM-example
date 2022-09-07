@@ -21,6 +21,7 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
     private final EmployeesRecordPage employeesRecordPage = new EmployeesRecordPage(driver);
     private final NewEmployeesFormPage newEmployeesFormPage = new NewEmployeesFormPage(driver);
     private final EmployeeProfilePage employeeProfilePage = new EmployeeProfilePage(driver);
+    private final ConfirmationModalPage confirmationModalPage = new ConfirmationModalPage(driver);
 
     private final Employee employee = new EmployeeBuilder().setFirstName("Sebastian").setLastName("Orozco Peña").build();
     private User user;
@@ -111,8 +112,8 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
 
     @When("^an admin deletes the employee$")
     public void anAdminDeletesTheEmployee() {
-        employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee).then().clickOnDeleteEmployee()
-                .then().clickOnConfirmUserDeletion();
+        employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee).then().clickOnDeleteEmployee();
+        confirmationModalPage.clickOnConfirmDeletion();
         navigatorPage.waitUntilSpinnerIsOut();
     }
 
@@ -131,6 +132,5 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
     @Then("I should see them listed")
     public void iShouldSeeThemListed() {
         assertThat(employeesRecordPage.recordsFoundByUsingId(employee.getId())).isEqualTo(true);
-
     }
 }
