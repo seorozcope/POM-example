@@ -26,3 +26,8 @@ Feature: As an OrangeHRM Admin I want to manage the employees to grant, or deny 
     Given I have an employee account registered
     When an admin deletes the employee
     Then shouldn't be able to see the account details
+
+  Scenario: Search for an employee by employee id
+    Given I have an employee account registered
+    When I search for them by employee id
+    Then I should see them listed

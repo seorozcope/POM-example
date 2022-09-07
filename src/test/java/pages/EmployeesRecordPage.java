@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class EmployeesRecordPage extends BasePage {
 
     @FindBy(xpath = "//a[text()='Add Employee']")
@@ -24,6 +27,8 @@ public class EmployeesRecordPage extends BasePage {
     WebElement btnConfirmDeletion;
     @FindBy(xpath = "//span[text()='No Records Found']")
     WebElement lblNoRecordFound;
+    @FindBy(xpath = "//div[contains(@class,'orangehrm-employee-list')]/div[@class='oxd-table-body']/div/div/div/div")
+    List<WebElement> lblListRecordFound;
 
 
     public EmployeesRecordPage(WebDriver driver) {
@@ -71,5 +76,11 @@ public class EmployeesRecordPage extends BasePage {
 
     public boolean noRecordsFoundMessageIsVisible() {
         return lblNoRecordFound.isDisplayed();
+    }
+
+    public boolean recordsFoundByUsingId(String id) {
+        List<WebElement> result = lblListRecordFound.stream()
+                .filter(item -> item.getText().equals(id)).toList();
+        return result.size() > 0;
     }
 }

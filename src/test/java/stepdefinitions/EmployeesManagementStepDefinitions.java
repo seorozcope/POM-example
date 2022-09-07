@@ -121,4 +121,16 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
         employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee);
         assertThat(employeesRecordPage.noRecordsFoundMessageIsVisible()).isEqualTo(true);
     }
+
+    @When("I search for them by employee id")
+    public void iSearchForThemByEmployeeId() {
+        employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee);
+        navigatorPage.waitUntilSpinnerIsOut();
+    }
+
+    @Then("I should see them listed")
+    public void iShouldSeeThemListed() {
+        assertThat(employeesRecordPage.recordsFoundByUsingId(employee.getId())).isEqualTo(true);
+
+    }
 }
