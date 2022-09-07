@@ -9,7 +9,7 @@ import java.util.List;
 
 import static utils.actions.ClearField.clearInput;
 
-public class TerminationReasonsPage extends BasePage{
+public class TerminationReasonsPage extends BasePage {
     private final NavigatorPage navigatorPage = new NavigatorPage(driver);
 
     @FindBy(xpath = "//div[@class='oxd-table-card']/div/div[2]/div")

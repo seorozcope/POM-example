@@ -12,16 +12,15 @@ import pages.TerminationReasonsPage;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static data.UserBuilder.adminUser;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class PMITerminationReasonsStepDefinitions extends StepDefinitions{
+public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
 
-    private OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
     private final EmployeesRecordPage employeesRecordPage = new EmployeesRecordPage(driver);
     private final TerminationReasonsPage terminationReasonsPage = new TerminationReasonsPage(driver);
     private final ConfirmationModalPage confirmationModalPage = new ConfirmationModalPage(driver);
-
+    private OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
     private String newTerminationReason;
 
     @Given("^I want to look for the available termination reasons$")

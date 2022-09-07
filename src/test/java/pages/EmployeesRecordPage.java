@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EmployeesRecordPage extends BasePage {
 
@@ -89,6 +88,7 @@ public class EmployeesRecordPage extends BasePage {
         btnConfiguration.click();
         return this;
     }
+
     public EmployeesRecordPage clickOnTerminationReasons() {
         wait.until(ExpectedConditions.elementToBeClickable(btnTerminationReasons));
         btnTerminationReasons.click();
