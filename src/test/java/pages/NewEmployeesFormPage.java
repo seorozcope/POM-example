@@ -4,8 +4,11 @@ import data.Employee;
 import data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static utils.actions.ClearField.clearInput;
 
 public class NewEmployeesFormPage extends BasePage {
 
@@ -17,7 +20,7 @@ public class NewEmployeesFormPage extends BasePage {
     @FindBy(xpath = "//div[@class='orangehrm-employee-form']/div/div[2]/div/div/div[2]/input")
     WebElement inputEmployeeId;
 
-    @FindBy(xpath = "//button[@type='submit' and text()=' Save ']")
+    @FindBy(xpath = "//button[@type='submit' and text()=' Save '][1]")
     WebElement btnSave;
     @FindBy(xpath = "//div[contains(@class,'user-form-header')]/div[contains(@class,'oxd-switch-wrapper')]/label/span")
     WebElement toggleCreateLoginDetails;
@@ -41,11 +44,14 @@ public class NewEmployeesFormPage extends BasePage {
 
     public NewEmployeesFormPage enterTheFirstName(String firstName) {
         wait.until(ExpectedConditions.elementToBeClickable(inputFirstName));
+        clearInput(inputFirstName);
         inputFirstName.sendKeys(firstName);
         return this;
     }
 
     public NewEmployeesFormPage enterTheLastName(String lastName) {
+        wait.until(ExpectedConditions.elementToBeClickable(inputLastName));
+        clearInput(inputLastName);
         inputLastName.sendKeys(lastName);
         return this;
     }
@@ -55,6 +61,10 @@ public class NewEmployeesFormPage extends BasePage {
     }
 
     public NewEmployeesFormPage clickOnSave() {
+        wait.until(ExpectedConditions.elementToBeClickable(btnSave));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(btnSave);
+        actions.perform();
         btnSave.click();
         return this;
     }
@@ -91,6 +101,11 @@ public class NewEmployeesFormPage extends BasePage {
     public NewEmployeesFormPage fillOutEmployeeInfo(Employee employee) {
         enterTheFirstName(employee.getFirstName())
                 .then().enterTheLastName(employee.getLastName());
+        return this;
+    }
+
+    public NewEmployeesFormPage withLoginCredentials(User user) {
+        clickOnCreateLoginDetailsToggle().then().fillOutCredentialDetails(user);
         return this;
     }
 

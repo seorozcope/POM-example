@@ -1,9 +1,5 @@
 Feature: As an OrangeHRM Admin I want to manage the employees to grant, or deny access them to the platform
 
-  Background: Login as an admin user
-    Given the HHRR manager wants to login on OrangeHRM
-    When he/she provides valid credentials
-
   Scenario: register an employee without assigning OrangeHRM account
     Given I want to register an employee
     When I submit the new employee form filling out the required fields
@@ -20,3 +16,8 @@ Feature: As an OrangeHRM Admin I want to manage the employees to grant, or deny 
     When I submit the new employee creating a disabled account form filling out the required fields
     Then the new employee should be registered
     And should see Account disabled when tried to login
+
+  Scenario: edit an employee account firstname and lastname
+    Given I have an employee account registered
+    When an admin changes the account details fullname and lastname
+    Then should see the new account details

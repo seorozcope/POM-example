@@ -9,14 +9,12 @@ import pages.DashboardPage;
 import pages.OrgangeHRMLoginPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static stepdefinitions.Hooks.getDriver;
 
 public class LoginStepDefinitions extends StepDefinitions {
     private OrgangeHRMLoginPage loginPage;
 
     @Given("^the HHRR manager wants to login on OrangeHRM$")
     public void theHhrrManagerWantsToLoginOnOrangeHrm() {
-        getDriver().get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         loginPage = new OrgangeHRMLoginPage(driver);
     }
 

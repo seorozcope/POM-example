@@ -3,7 +3,6 @@ package stepdefinitions;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,9 +21,10 @@ public class Hooks {
     public void setup() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--no-sandbox")
+        chromeOptions.addArguments("--headless")
+                .addArguments("--lang=en")
+                .addArguments("--no-sandbox")
                 .addArguments("--disable-download-notification")
-                .addArguments("--headless")
                 .addArguments("disable-gpu")
                 .addArguments("--ignore-certificate-error")
                 .addArguments("--always-authorize-plugins")
@@ -33,6 +33,8 @@ public class Hooks {
                 .addArguments("--disable-popup-blocking");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
     }
 
     @After

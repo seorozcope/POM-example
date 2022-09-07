@@ -30,5 +30,5 @@ test {
     }
     scanForTestClasses = false
     testLogging.showStandardStreams = true
-    maxParallelForks = Runtime.runtime.availableProcessors() - 1
+    //maxParallelForks = Runtime.runtime.availableProcessors() - 1
 }
