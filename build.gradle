@@ -1,4 +1,4 @@
-plugins{
+plugins {
     id 'java'
     id "idea"
 }
@@ -10,11 +10,11 @@ repositories {
     mavenCentral()
 }
 
-ext{
-    cucumberVersion='7.6.0'
+ext {
+    cucumberVersion = '7.6.0'
 }
 
-dependencies(){
+dependencies() {
     implementation 'org.seleniumhq.selenium:selenium-java:4.4.0'
     implementation "io.cucumber:cucumber-java:$rootProject.ext.cucumberVersion"
     implementation "io.cucumber:cucumber-testng:$rootProject.ext.cucumberVersion"
@@ -25,10 +25,10 @@ dependencies(){
 
 test {
     useTestNG() {
-        //set TestNG output dir
-        outputDirectory = file("$project.buildDir//testngOutput")
-        //required to turn on TestNG reports
         useDefaultListeners = true
-        suites 'testng-myTests.xml'
+        suites 'src/test/java/runners/testng.xml'
     }
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
+    //maxParallelForks = Runtime.runtime.availableProcessors() - 1
 }
