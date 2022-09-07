@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EmployeesRecordPage extends BasePage {
 
@@ -15,6 +14,8 @@ public class EmployeesRecordPage extends BasePage {
     WebElement btnAddEmployee;
     @FindBy(xpath = "//a[text()='Employee List']")
     WebElement btnEmployeeList;
+    @FindBy(xpath = "//span[text()='Configuration ']")
+    WebElement btnConfiguration;
     @FindBy(xpath = "//label[text()='Employee Id']/parent::div/parent::div/child::div[2]/input")
     WebElement inputEmployeeId;
     @FindBy(xpath = "//button[@type='submit']")
@@ -23,12 +24,13 @@ public class EmployeesRecordPage extends BasePage {
     WebElement btnEdit;
     @FindBy(xpath = "//i[contains(@class,'bi-trash')]/parent::button")
     WebElement btnDelete;
-    @FindBy(xpath = "//button[text()=' Yes, Delete ']")
-    WebElement btnConfirmDeletion;
     @FindBy(xpath = "//span[text()='No Records Found']")
     WebElement lblNoRecordFound;
     @FindBy(xpath = "//div[contains(@class,'orangehrm-employee-list')]/div[@class='oxd-table-body']/div/div/div/div")
     List<WebElement> lblListRecordFound;
+
+    @FindBy(xpath = "//li/a[text()='Termination Reasons']")
+    WebElement btnTerminationReasons;
 
 
     public EmployeesRecordPage(WebDriver driver) {
@@ -69,10 +71,7 @@ public class EmployeesRecordPage extends BasePage {
         btnDelete.click();
         return this;
     }
-    public EmployeesRecordPage clickOnConfirmUserDeletion() {
-        btnConfirmDeletion.click();
-        return this;
-    }
+
 
     public boolean noRecordsFoundMessageIsVisible() {
         return lblNoRecordFound.isDisplayed();
@@ -82,5 +81,17 @@ public class EmployeesRecordPage extends BasePage {
         List<WebElement> result = lblListRecordFound.stream()
                 .filter(item -> item.getText().equals(id)).toList();
         return result.size() > 0;
+    }
+
+    public EmployeesRecordPage clickOnConfigurarion() {
+        wait.until(ExpectedConditions.elementToBeClickable(btnConfiguration));
+        btnConfiguration.click();
+        return this;
+    }
+
+    public EmployeesRecordPage clickOnTerminationReasons() {
+        wait.until(ExpectedConditions.elementToBeClickable(btnTerminationReasons));
+        btnTerminationReasons.click();
+        return this;
     }
 }

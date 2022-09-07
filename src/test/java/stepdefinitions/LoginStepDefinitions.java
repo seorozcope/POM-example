@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginStepDefinitions extends StepDefinitions {
     private OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
-    private DashboardPage dashboardPage= new DashboardPage(driver);
+    private DashboardPage dashboardPage = new DashboardPage(driver);
 
     @Given("^the HHRR manager wants to login on OrangeHRM$")
     public void theHhrrManagerWantsToLoginOnOrangeHrm() {
@@ -48,10 +48,12 @@ public class LoginStepDefinitions extends StepDefinitions {
     public void iAmALoggedInUser() {
         loginPage.loginWithCredentials(adminUser());
     }
+
     @When("^I log out$")
     public void iLogOut() {
         dashboardPage.clickOnProfileFullName().then().clickOnLogout();
     }
+
     @Then("^I should see the login form$")
     public void iShouldSeeTheLoginForm() {
         assertThat(loginPage.loginButtonIsVisible()).isEqualTo(true);
