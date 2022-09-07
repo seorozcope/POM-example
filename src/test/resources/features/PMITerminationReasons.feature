@@ -12,9 +12,14 @@ Feature: As an HHRR admin I want to manage the termination reasons to provide be
 
   Scenario: Edit a termination reason
     Given I want to edit a termination reason
+    When I edit the termination reason name
+    Then it should be displayed
 
   Scenario: Delete a termination reason
     Given I want to delete a termination reason
+    When I delete a termination reason
+    Then it shouldn't be displayed
+
 
   Scenario: Delete all termination reasons with bulk actions
     Given I want to delete termination records using bulk actions

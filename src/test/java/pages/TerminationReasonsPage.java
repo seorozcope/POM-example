@@ -14,6 +14,10 @@ public class TerminationReasonsPage extends BasePage{
 
     @FindBy(xpath = "//div[@class='oxd-table-card']/div/div[2]/div")
     List<WebElement> cardTerminationReasonsList;
+    @FindBy(xpath = "//i[contains(@class,'bi-pencil-fill')]")
+    List<WebElement> btnEditTerminationReasonList;
+    @FindBy(xpath = "//i[contains(@class,'bi-trash')]")
+    List<WebElement> btnDeleteTerminationReasonList;
     @FindBy(xpath = "//button[text()=' Add ']")
     WebElement btnAdd;
     @FindBy(xpath = "//button[text()=' Save ']")
@@ -46,6 +50,8 @@ public class TerminationReasonsPage extends BasePage{
     }
 
     public TerminationReasonsPage fillOutTerminationReasonFormWith(String newTerminationReason) {
+        navigatorPage.waitUntilSpinnerIsOut();
+        wait.until(ExpectedConditions.elementToBeClickable(inputName));
         clearInput(inputName);
         inputName.sendKeys(newTerminationReason);
         return this;
@@ -58,9 +64,9 @@ public class TerminationReasonsPage extends BasePage{
     }
 
     public List<WebElement> recordsFoundByTerminationReasonName(String newTerminationReason) {
-        List<WebElement> result = cardTerminationReasonsList.stream()
+        navigatorPage.waitUntilSpinnerIsOut();
+        return cardTerminationReasonsList.stream()
                 .filter(item -> item.getText().equals(newTerminationReason)).toList();
-        return result;
     }
 
     public TerminationReasonsPage clickOnSelectAll() {
@@ -73,5 +79,25 @@ public class TerminationReasonsPage extends BasePage{
         wait.until(ExpectedConditions.elementToBeClickable(btnDeleteSelected));
         btnDeleteSelected.click();
         return this;
+    }
+
+    public TerminationReasonsPage gotToEditFirstTerminationReasonRecord() {
+        navigatorPage.waitUntilSpinnerIsOut();
+        wait.until(ExpectedConditions.elementToBeClickable(btnEditTerminationReasonList.get(0)));
+        btnEditTerminationReasonList.get(0).click();
+        return this;
+    }
+
+    public TerminationReasonsPage gotToDeleteFirstTerminationReasonRecord() {
+        navigatorPage.waitUntilSpinnerIsOut();
+        wait.until(ExpectedConditions.elementToBeClickable(btnDeleteTerminationReasonList.get(0)));
+        btnDeleteTerminationReasonList.get(0).click();
+        return this;
+    }
+
+    public String getFirstTeminationReason() {
+        navigatorPage.waitUntilSpinnerIsOut();
+        wait.until(ExpectedConditions.elementToBeClickable(cardTerminationReasonsList.get(0)));
+        return cardTerminationReasonsList.get(0).getText();
     }
 }

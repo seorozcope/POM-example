@@ -82,4 +82,29 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions{
     public void confirmationModalShouldBeShown() {
         assertThat(confirmationModalPage.confirmationModalWasShown()).isEqualTo(true);
     }
+
+    @When("I edit the termination reason name")
+    public void iEditTheTerminationReasonName() {
+        newTerminationReason = "edited termination reason " + LocalDateTime.now();
+        terminationReasonsPage.gotToEditFirstTerminationReasonRecord()
+                .then().fillOutTerminationReasonFormWith(newTerminationReason).then().clickOnSave();
+    }
+
+    @Then("it should be displayed")
+    public void itShouldBeDisplayed() {
+        iShouldBeAbleToSeeTheNewTerminationReasonAtTerminationReasonsList();
+    }
+
+    @When("I delete a termination reason")
+    public void iDeleteATerminationReason() {
+        String deletedTerminationReason = terminationReasonsPage.getFirstTeminationReason();
+        terminationReasonsPage.gotToDeleteFirstTerminationReasonRecord();
+        confirmationModalPage.clickOnConfirmDeletion();
+    }
+
+    @Then("it shouldn't be displayed")
+    public void itShouldnTBeDisplayed() {
+        List<WebElement> records = terminationReasonsPage.recordsFoundByTerminationReasonName(newTerminationReason);
+        assertThat(records.size()).isEqualTo(0);
+    }
 }
