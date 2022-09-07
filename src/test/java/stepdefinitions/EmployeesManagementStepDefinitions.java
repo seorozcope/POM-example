@@ -119,6 +119,6 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
     @Then("^shouldn't be able to see the account details$")
     public void shouldnTBeAbleToSeeTheAccountDetails() {
         employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee);
-        assertThat(employeesRecordPage.noRecordsFoundMessageIsVisible());
+        assertThat(employeesRecordPage.noRecordsFoundMessageIsVisible()).isEqualTo(true);
     }
 }

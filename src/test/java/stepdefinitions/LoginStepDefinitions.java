@@ -8,14 +8,16 @@ import io.cucumber.java.en.When;
 import pages.DashboardPage;
 import pages.OrgangeHRMLoginPage;
 
+import static data.UserBuilder.adminUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginStepDefinitions extends StepDefinitions {
-    private OrgangeHRMLoginPage loginPage;
+    private OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
+    private DashboardPage dashboardPage= new DashboardPage(driver);
 
     @Given("^the HHRR manager wants to login on OrangeHRM$")
     public void theHhrrManagerWantsToLoginOnOrangeHrm() {
-        loginPage = new OrgangeHRMLoginPage(driver);
+        // nothing to do
     }
 
     @When("^he/she provides wrong credentials$")
@@ -31,7 +33,7 @@ public class LoginStepDefinitions extends StepDefinitions {
 
     @When("^he/she provides valid credentials$")
     public void heSheProvidesValidCredentials() {
-        User adminUser = UserBuilder.adminUser();
+        User adminUser = adminUser();
         loginPage.loginWithCredentials(adminUser);
     }
 
@@ -40,5 +42,18 @@ public class LoginStepDefinitions extends StepDefinitions {
         DashboardPage dashboardPage = new DashboardPage(driver);
         assertThat(dashboardPage.profilePictureIsShown()).isEqualTo(true);
         assertThat(dashboardPage.profileFullNameIsShown()).isEqualTo(true);
+    }
+
+    @Given("^I am a logged in user$")
+    public void iAmALoggedInUser() {
+        loginPage.loginWithCredentials(adminUser());
+    }
+    @When("^I log out$")
+    public void iLogOut() {
+        dashboardPage.clickOnProfileFullName().then().clickOnLogout();
+    }
+    @Then("^I should see the login form$")
+    public void iShouldSeeTheLoginForm() {
+        assertThat(loginPage.loginButtonIsVisible()).isEqualTo(true);
     }
 }

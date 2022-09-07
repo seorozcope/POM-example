@@ -51,4 +51,8 @@ public class OrgangeHRMLoginPage extends BasePage {
                 .then().enterThePassword(user.getPassword())
                 .then().clickOnLogin();
     }
+
+    public boolean loginButtonIsVisible() {
+        return btnLogin.isDisplayed();
+    }
 }
