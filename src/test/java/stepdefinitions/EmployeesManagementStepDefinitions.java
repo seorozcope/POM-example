@@ -91,7 +91,6 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
         navigatorPage.clickOnPMI();
         submitTheNewEmployeeFormFillingOutTheRequiredFields();
         navigatorPage.waitUntilSpinnerIsOut();
-
     }
 
     @When("^an admin changes the account details fullname and lastname$")
@@ -105,8 +104,21 @@ public class EmployeesManagementStepDefinitions extends StepDefinitions {
         navigatorPage.waitUntilSpinnerIsOut();
     }
 
-    @Then("should see the new account details")
+    @Then("^should see the new account details$")
     public void shouldSeeTheNewAccountDetails() {
         theNewEmployeeShouldBeRegistered();
+    }
+
+    @When("^an admin deletes the employee$")
+    public void anAdminDeletesTheEmployee() {
+        employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee).then().clickOnDeleteEmployee()
+                .then().clickOnConfirmUserDeletion();
+        navigatorPage.waitUntilSpinnerIsOut();
+    }
+
+    @Then("^shouldn't be able to see the account details$")
+    public void shouldnTBeAbleToSeeTheAccountDetails() {
+        employeesRecordPage.clickOnEmployeeList().then().searchByEmployeeId(employee);
+        assertThat(employeesRecordPage.noRecordsFoundMessageIsVisible());
     }
 }

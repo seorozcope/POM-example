@@ -20,6 +20,10 @@ public class EmployeesRecordPage extends BasePage {
     WebElement btnEdit;
     @FindBy(xpath = "//i[contains(@class,'bi-trash')]/parent::button")
     WebElement btnDelete;
+    @FindBy(xpath = "//button[text()=' Yes, Delete ']")
+    WebElement btnConfirmDeletion;
+    @FindBy(xpath = "//span[text()='No Records Found']")
+    WebElement lblNoRecordFound;
 
 
     public EmployeesRecordPage(WebDriver driver) {
@@ -59,5 +63,13 @@ public class EmployeesRecordPage extends BasePage {
     public EmployeesRecordPage clickOnDeleteEmployee() {
         btnDelete.click();
         return this;
+    }
+    public EmployeesRecordPage clickOnConfirmUserDeletion() {
+        btnConfirmDeletion.click();
+        return this;
+    }
+
+    public boolean noRecordsFoundMessageIsVisible() {
+        return lblNoRecordFound.isDisplayed();
     }
 }

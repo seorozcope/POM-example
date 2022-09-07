@@ -21,3 +21,8 @@ Feature: As an OrangeHRM Admin I want to manage the employees to grant, or deny 
     Given I have an employee account registered
     When an admin changes the account details fullname and lastname
     Then should see the new account details
+
+  Scenario: delete an employee account
+    Given I have an employee account registered
+    When an admin deletes the employee
+    Then shouldn't be able to see the account details
