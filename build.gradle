@@ -27,6 +27,7 @@ test {
     useTestNG() {
         useDefaultListeners = true
         suites 'src/test/java/runners/testng.xml'
+        outputDirectory = file("$projectDir/AutomationReport")
     }
     scanForTestClasses = false
     testLogging.showStandardStreams = true
