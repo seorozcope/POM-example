@@ -20,7 +20,6 @@ Feature: As an HHRR admin I want to manage the reporting to provide better under
     When I delete a reporting method
     Then it shouldn't be displayed anymore ate reporting method list
 
-
   Scenario: Delete all reporting methods with bulk actions
     Given I want to delete reporting methods using bulk actions
     When I select all elements on the reporting methods list to be deleted

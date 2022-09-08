@@ -31,6 +31,8 @@ public class EmployeesRecordPage extends BasePage {
 
     @FindBy(xpath = "//li/a[text()='Termination Reasons']")
     WebElement btnTerminationReasons;
+    @FindBy(xpath = "//li/a[text()='Reporting Methods']")
+    WebElement btnReportingMethods;
 
 
     public EmployeesRecordPage(WebDriver driver) {
@@ -92,6 +94,12 @@ public class EmployeesRecordPage extends BasePage {
     public EmployeesRecordPage clickOnTerminationReasons() {
         wait.until(ExpectedConditions.elementToBeClickable(btnTerminationReasons));
         btnTerminationReasons.click();
+        return this;
+    }
+
+    public EmployeesRecordPage clickOnReportingMethods() {
+        wait.until(ExpectedConditions.elementToBeClickable(btnReportingMethods));
+        btnReportingMethods.click();
         return this;
     }
 }

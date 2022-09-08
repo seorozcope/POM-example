@@ -6,8 +6,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 import pages.ConfirmationModalPage;
 import pages.EmployeesRecordPage;
+import pages.ListOfConfiguredMethodsPage;
 import pages.OrgangeHRMLoginPage;
-import pages.TerminationReasonsPage;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
 
     private final EmployeesRecordPage employeesRecordPage = new EmployeesRecordPage(driver);
-    private final TerminationReasonsPage terminationReasonsPage = new TerminationReasonsPage(driver);
+    private final ListOfConfiguredMethodsPage listOfConfiguredMethodsPage = new ListOfConfiguredMethodsPage(driver);
     private final ConfirmationModalPage confirmationModalPage = new ConfirmationModalPage(driver);
     private OrgangeHRMLoginPage loginPage = new OrgangeHRMLoginPage(driver);
     private String newTerminationReason;
@@ -35,7 +35,7 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
 
     @Then("^I should be able to see the list of all available termination reasons$")
     public void iShouldBeAbleToSeeTheListOfAllAvailableTerminationReasons() {
-        assertThat(terminationReasonsPage.numberOfTerminationReasonsRecords()).isGreaterThan(0);
+        assertThat(listOfConfiguredMethodsPage.numberOfCardElementsRecords()).isGreaterThan(0);
     }
 
     @Given("I want to add new termination reasons")
@@ -47,13 +47,13 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
     @When("I fill out the new termination reason form")
     public void iFillOutTheNewTerminationReasonForm() {
         newTerminationReason = "new termination reason " + LocalDateTime.now();
-        terminationReasonsPage.clickOnAdd().then().fillOutTerminationReasonFormWith(newTerminationReason)
+        listOfConfiguredMethodsPage.clickOnAdd().then().fillOutNewElementFormWith(newTerminationReason)
                 .then().clickOnSave();
     }
 
     @Then("I should be able to see the new termination reason at termination reasons list")
     public void iShouldBeAbleToSeeTheNewTerminationReasonAtTerminationReasonsList() {
-        List<WebElement> records = terminationReasonsPage.recordsFoundByTerminationReasonName(newTerminationReason);
+        List<WebElement> records = listOfConfiguredMethodsPage.recordsFoundByCardElementName(newTerminationReason);
         assertThat(records.size()).isEqualTo(1);
     }
 
@@ -65,6 +65,7 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
     @Given("I want to delete a termination reason")
     public void iWantToDeleteATerminationReason() {
         goToTerminationReasonsList();
+        iFillOutTheNewTerminationReasonForm();
     }
 
     @Given("I want to delete termination records using bulk actions")
@@ -74,7 +75,8 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
 
     @When("I select all elements on the list to be deleted")
     public void iSelectAllElementsOnTheListToBeDeleted() {
-        terminationReasonsPage.clickOnSelectAll().then().clickOnDeleteSelected();
+        iFillOutTheNewTerminationReasonForm();
+        listOfConfiguredMethodsPage.clickOnSelectAll().then().clickOnDeleteSelected();
     }
 
     @Then("confirmation modal should be shown")
@@ -85,8 +87,8 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
     @When("I edit the termination reason name")
     public void iEditTheTerminationReasonName() {
         newTerminationReason = "edited termination reason " + LocalDateTime.now();
-        terminationReasonsPage.gotToEditFirstTerminationReasonRecord()
-                .then().fillOutTerminationReasonFormWith(newTerminationReason).then().clickOnSave();
+        listOfConfiguredMethodsPage.gotToEditFirstCardElementRecord()
+                .then().fillOutNewElementFormWith(newTerminationReason).then().clickOnSave();
     }
 
     @Then("it should be displayed")
@@ -96,14 +98,13 @@ public class PMITerminationReasonsStepDefinitions extends StepDefinitions {
 
     @When("I delete a termination reason")
     public void iDeleteATerminationReason() {
-        String deletedTerminationReason = terminationReasonsPage.getFirstTeminationReason();
-        terminationReasonsPage.gotToDeleteFirstTerminationReasonRecord();
+        listOfConfiguredMethodsPage.gotToDeleteTheElementRecordAs(newTerminationReason);
         confirmationModalPage.clickOnConfirmDeletion();
     }
 
     @Then("it shouldn't be displayed")
     public void itShouldnTBeDisplayed() {
-        List<WebElement> records = terminationReasonsPage.recordsFoundByTerminationReasonName(newTerminationReason);
+        List<WebElement> records = listOfConfiguredMethodsPage.recordsFoundByCardElementName(newTerminationReason);
         assertThat(records.size()).isEqualTo(0);
     }
 }
