@@ -7,6 +7,7 @@
             <class name="runners.EmployeesManagementRunner"/>
             <class name="runners.PMITerminationReasonsRunner"/>
             <class name="runners.PMIReportingMethodsRunner"/>
+            <class name="runners.NavigationBarRunner"/>
         </classes>
     </test>
 </suite>
